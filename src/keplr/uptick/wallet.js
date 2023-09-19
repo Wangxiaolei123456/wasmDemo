@@ -306,21 +306,28 @@ export async function WasmNftMint(
 
     let accountInfo = await getAccountInfo()
     console.log("accountInfo",accountInfo);
-    const handleMsg = { name: "xiaolei" };
+    const handleMsg = { name: "smile" };
     const coins = { denom: "auptick", amount: "1000000" };
     const gas = "200000";
 
-    // "ex1eutyuqqase3eyvwe92caw8dcx5ly8s544q3hmq", "ex14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s6fqu27"
-//    const res3 = await client.execute("ex1eutyuqqase3eyvwe92caw8dcx5ly8s544q3hmq", "ex14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s6fqu27", {"transfer":{"amount":"10","recipient":"ex1h0j8x0v9hs4eq6ppgamemfyu4vuvp2sl0q9p3v"}}, {"amount":parseCoins("1okt"),"gas":"200000"}, "", null);
+
+    // senderAddress：发送者的地址，也就是执行合约的账户地址。
+    // contractAddress：要执行的合约的地址。
+    // handleMsg：要传递给合约的消息，可以是一个字符串或者一个对象。
+    // coins：要发送给合约的货币数量，可以是一个字符串或者一个对象。
+    // gas：用于执行合约的gas数量，可以是一个字符串或者一个数字。
  let result = await client.execute(
     accountInfo.bech32Address,
     REGISTRY_CONTRACT,
     handleMsg,
     coins,
     gas
-  
-
   );
+
+
+
+
+
 
    
     console.log("result",result);
