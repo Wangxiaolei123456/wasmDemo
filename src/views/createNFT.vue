@@ -83,6 +83,11 @@ export default {
                     title:result,
                 });
                   this.isShowLoading = false
+                }else{
+                     this.$mtip({
+                    title:result,
+                });
+                     this.isShowLoading = false
                 }
 
               

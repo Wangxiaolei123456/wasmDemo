@@ -77,6 +77,7 @@ export default {
     pointer-events: none;
 
     .tip {
+        word-break: break-word;
         padding: 10px 0;
         margin: 10px;
         background-color: #fb599b;

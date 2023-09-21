@@ -18,5 +18,6 @@ module.exports = {
     "no-unused-vars":"off",
     "vue/no-unused-components": "off",
     "vue/multi-word-component-names":"off",
+    "no-debugger":0
   },
 };

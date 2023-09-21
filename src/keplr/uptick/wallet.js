@@ -31,6 +31,57 @@ const REGISTRY_CONTRACT =  'uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3t
 export async function convertWasmNFT2NFT(denomId, nftId) {
 
     try {
+        console.log("convertWasmNFT2NFT",denomId,nftId);
+debugger
+        // let irisAccount = await getAccountInfo(irisChainId);
+        let uptickAccount = await getAccountInfo();
+        let uptickAddress = uptickAccount.bech32Address
+        let evmAddress = getEvmAddress(uptickAddress)
+        console.log('wwww', "/uptick.erc721.v1.MsgConvertNFT", denomId, nftId, evmAddress, uptickAddress);
+        console.log("convertCosmosNFT2ERC evmAddress ", evmAddress);
+        console.log("convertCosmosNFT2ERC uptickAddress ", uptickAddress);
+        let msg = {
+            typeUrl: "/uptick.cw721.v1.MsgConvertCW721",
+            value: [
+                denomId,
+                nftId,
+                uptickAddress,
+                uptickAddress,
+                "",//contractAddress
+                ""]//tokenId
+        }
+        const result = await sendMsgsTx(uptickAddress, [msg], 1000000, "");
+        console.log('convertWasmNFT2NFT',result)
+        console.log(JSON.parse(result.rawLog))
+        // debugger
+        if (result.code == 0) {
+
+            const logInfo = JSON.parse(result.rawLog)
+
+            let contractAddress = logInfo[0].events[0].attributes[4].value
+            let tokenId = logInfo[0].events[0].attributes[5].value
+            console.log("contractAddress, tokenId", contractAddress, tokenId)
+            
+            return {
+                "evmNftAddress": contractAddress,
+                "evmNftId": tokenId,
+                "evmOwner": evmAddress,
+                "nftAddress": denomId,
+                "nftId": nftId,
+                "owner": uptickAddress
+            };
+        } else {
+            throw new Error(result.rawLog)
+        }
+    } catch (error) {
+        console.log(error)
+        throw new Error(error)
+    }
+}
+
+export async function convertNFT2Wasm(denomId, nftId) {
+
+    try {
         // let irisAccount = await getAccountInfo(irisChainId);
         let uptickAccount = await getAccountInfo();
         let uptickAddress = uptickAccount.bech32Address
@@ -405,12 +456,11 @@ export async function WasmNftMint(nftID,token_uri
     }catch(e){
         console.log(5.5); 
         console.log("error is ",e);
+        return e
     }
 
 
   
-  console.log("xxl 6 result ",result); 
-  return result;
 
 }
 

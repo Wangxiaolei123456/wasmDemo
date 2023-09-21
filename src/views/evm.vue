@@ -45,10 +45,11 @@
          
              </div>
              <div class="d-flex flex-row mt-5">
-                <button type="submit" class="btn">NativeToEvm</button>
-              <button type="submit" class="btn ml-6">EvmToNative</button>
-              <button type="submit" class="btn ml-6">NativeToWasm</button>
-              <button type="submit" class="btn ml-6" @click="wasmToNative">WasmToNative</button>
+                <button type="submit" class="btn"  @click="wasmToNative">WasmToNative</button>
+                <button type="submit" class="btn ml-6" @click="NativeToEvm">NativeToEvm</button>
+              <button type="submit" class="btn ml-6" @click="EvmToNative">EvmToNative</button>
+              <button type="submit" class="btn ml-6" @click="NativeToWasm">NativeToWasm</button>
+             
              </div>
               
             <!-- <div class="title-20"> nftId:  <input class="textInput" type="text" placeholder="NFT Id" v-model="nftIdValue" > </div> -->
@@ -59,7 +60,7 @@
         @reload:data="reladData" @submit:popup="submitPopup">
       </popup>
     </div>
-
+  <uComponents ref="ucom"></uComponents>
   </div>
 </template>
 
@@ -71,7 +72,7 @@ import ConvertCosmoss from "./convertCosmoss";
 import Card from "../components/workCard/card.vue";
 import { getMyCardList, updateUser } from "@/api/home";
 import Popup from './popup';
-import { getEvmAddress,WasmNftMint,convertWasmNFT2NFT } from "/src/keplr/uptick/wallet"
+import { getEvmAddress,WasmNftMint,convertWasmNFT2NFT,convertNFT2Wasm,convertCosmosNFT2ERC,convertERC2CosmosNFT } from "/src/keplr/uptick/wallet"
 
 
 
@@ -116,7 +117,7 @@ export default {
 
   },
   async mounted() {
-
+     
     let uptickAddress = this.$store.state.UptickAddress
     console.log(uptickAddress)
     if (uptickAddress == "") {
@@ -124,23 +125,24 @@ export default {
       return
     }
 
-    // 获取列表
-    let params = {
-      owner: this.$store.state.UptickAddress,
-      chainType: this.chainType,
-    };
-    let result = await updateUser(params)
-    console.log(result)
-
-    this.evmAddress = getEvmAddress(uptickAddress)
-    // 获取列表
-    await this.getMyList();
+   
   },
   methods: {
    async wasmToNative(){
       await convertWasmNFT2NFT(this.nftAddressValue,this.nftIdValue)
 
     },
+   async NativeToEvm(){
+        await convertCosmosNFT2ERC(this.nftAddressValue,this.nftIdValue)
+    },
+      async EvmToNative(){
+        await convertERC2CosmosNFT(this.nftAddressValue,this.nftIdValue)
+    },
+   async NativeToWasm(){
+      await convertNFT2Wasm(this.nftAddressValue,this.nftIdValue)
+   },
+
+    
     showChain() {
       this.isShowChainList = !this.isShowChainList;
     },

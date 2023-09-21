@@ -227,6 +227,6 @@ export const keplrKeystoreChange = async () => {
   
 }
 export async function initWallet() {
-   await  addIRISNetwork();
+  //  await  addIRISNetwork();
    await  addUptickNetwork();
 }
