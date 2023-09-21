@@ -16,14 +16,12 @@ import $store from "../../store";
 
 async function handleAccountsChanged(accounts) {
     if (accounts.length == 0) return;
-
     let address = accounts[0];
     let did = getUptickAddress(address.substr(2));
     $store.commit('SET_DID', address);
     address = address.toLowerCase();
     window.bscAddress = address;
     localStorage.setItem("key_user", JSON.stringify({ user: true, did: $store.state.did, bscAddress: address }));
-
     location.reload();
 }
 

@@ -40,7 +40,7 @@
              
              </div>
              <div class="d-flex flex-row align-center mt-6">
-              <div  class="title-20">nftAddress :</div>
+              <div  class="title-20">nftId :</div>
              <input class="textInput" type="text" placeholder="NFT ID" v-model="nftIdValue"> 
          
              </div>
@@ -48,7 +48,7 @@
                 <button type="submit" class="btn">NativeToEvm</button>
               <button type="submit" class="btn ml-6">EvmToNative</button>
               <button type="submit" class="btn ml-6">NativeToWasm</button>
-              <button type="submit" class="btn ml-6">WasmToNative</button>
+              <button type="submit" class="btn ml-6" @click="wasmToNative">WasmToNative</button>
              </div>
               
             <!-- <div class="title-20"> nftId:  <input class="textInput" type="text" placeholder="NFT Id" v-model="nftIdValue" > </div> -->
@@ -71,7 +71,7 @@ import ConvertCosmoss from "./convertCosmoss";
 import Card from "../components/workCard/card.vue";
 import { getMyCardList, updateUser } from "@/api/home";
 import Popup from './popup';
-import { getEvmAddress,WasmNftMint } from "/src/keplr/uptick/wallet"
+import { getEvmAddress,WasmNftMint,convertWasmNFT2NFT } from "/src/keplr/uptick/wallet"
 
 
 
@@ -137,6 +137,10 @@ export default {
     await this.getMyList();
   },
   methods: {
+   async wasmToNative(){
+      await convertWasmNFT2NFT(this.nftAddressValue,this.nftIdValue)
+
+    },
     showChain() {
       this.isShowChainList = !this.isShowChainList;
     },

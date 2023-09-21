@@ -27,6 +27,59 @@ const irisUrl = window.location.protocol + "//" + window.location.host + "/iris"
 const REGISTRY_CONTRACT =  'uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s59l95g'
 
 
+
+export async function convertWasmNFT2NFT(denomId, nftId) {
+
+    try {
+        // let irisAccount = await getAccountInfo(irisChainId);
+        let uptickAccount = await getAccountInfo();
+        let uptickAddress = uptickAccount.bech32Address
+        let evmAddress = getEvmAddress(uptickAddress)
+        console.log('wwww', "/uptick.erc721.v1.MsgConvertNFT", denomId, nftId, evmAddress, uptickAddress);
+        console.log("convertCosmosNFT2ERC evmAddress ", evmAddress);
+        console.log("convertCosmosNFT2ERC uptickAddress ", uptickAddress);
+        let msg = {
+            typeUrl: "/uptick.cw721.v1.MsgConvertNFT",
+            value: [
+                denomId,
+                nftId,
+                evmAddress,
+                uptickAddress,
+                "",//contractAddress
+                ""]//tokenId
+        }
+        const result = await sendMsgsTx(uptickAddress, [msg], 1000000, "");
+        console.log(result)
+        console.log(JSON.parse(result.rawLog))
+        // debugger
+        if (result.code == 0) {
+
+            const logInfo = JSON.parse(result.rawLog)
+
+            let contractAddress = logInfo[0].events[0].attributes[4].value
+            let tokenId = logInfo[0].events[0].attributes[5].value
+            console.log("contractAddress, tokenId", contractAddress, tokenId)
+            
+            return {
+                "evmNftAddress": contractAddress,
+                "evmNftId": tokenId,
+                "evmOwner": evmAddress,
+                "nftAddress": denomId,
+                "nftId": nftId,
+                "owner": uptickAddress
+            };
+        } else {
+            throw new Error(result.rawLog)
+        }
+    } catch (error) {
+        console.log(error)
+        throw new Error(error)
+    }
+}
+
+
+
+
 export async function convertCosmosNFT2ERC(denomId, nftId) {
 
     try {
@@ -285,7 +338,7 @@ async function sendMsgsTx(address, msgs, amount, data, isIris = false) {
 
 }
 
-export async function WasmNftMint(
+export async function WasmNftMint(nftID,token_uri
   
 ) {
 
@@ -312,7 +365,7 @@ export async function WasmNftMint(
     let accountInfo = await getAccountInfo()
     console.log("accountInfo",accountInfo);
     // const handleMsg = { name: "smile" };
-    const handleMsg = {"mint": {"token_id":"abc123", "owner":"uptick103rx84uqa7n4mtmz8f88n4g9m7973rxutrtn7d", "token_uri":"http://test.com"}}
+    const handleMsg = {"mint": {"token_id":nftID, "owner": accountInfo.bech32Address, "token_uri":token_uri}}
     const coins = { denom: "auptick", amount: "1000000" };
     const gas = "200000";
 
@@ -348,8 +401,7 @@ export async function WasmNftMint(
             handleMsg,
             fee
         );
-
-        console.log("5.4 xxl result is : ",result);
+        return result.transactionHash
     }catch(e){
         console.log(5.5); 
         console.log("error is ",e);
