@@ -2551,10 +2551,10 @@
   dependencies:
     "@types/node" "*"
 
-"@uptsmart/cosmwasm-stargate@^0.27.4":
-  version "0.27.4"
-  resolved "https://registry.yarnpkg.com/@uptsmart/cosmwasm-stargate/-/cosmwasm-stargate-0.27.4.tgz#d0f912b8382fc642433c75793ee20b0dd5febd1f"
-  integrity sha512-sOfBBZVFonPFcJl2Hh4+ET6IfvR7X64iHZItrrL4tX6LZy7DWPp9HGGR5MMAy+ZrmFiWEa4Vhhds+BeYwGnscQ==
+"@uptsmart/cosmwasm-stargate@^0.27.6":
+  version "0.27.6"
+  resolved "https://registry.yarnpkg.com/@uptsmart/cosmwasm-stargate/-/cosmwasm-stargate-0.27.6.tgz#106782ad786995071f407c31e2e62ba94920d17d"
+  integrity sha512-uKJaNEUivdTIpYHtNd2+j4iSN2+3qy3H+KoZfVMF7IpyVj2LGKiyvnsWc9k3Lj3an0G2bvJE5pehSCriQtHIOA==
   dependencies:
     "@cosmjs/amino" "^0.27.1"
     "@cosmjs/crypto" "^0.27.1"
@@ -2563,7 +2563,7 @@
     "@cosmjs/tendermint-rpc" "^0.27.1"
     "@cosmjs/utils" "^0.27.1"
     "@uptsmart/proto-signing" "^0.27.8"
-    "@uptsmart/stargate" "^0.27.13"
+    "@uptsmart/stargate" "^0.27.15"
     cosmjs-types "^0.5.2"
     long "^4.0.0"
     pako "^2.0.2"
@@ -2587,10 +2587,10 @@
   dependencies:
     "@irisnet/irishub-sdk" "^2.0.1"
 
-"@uptsmart/stargate@^0.27.13":
-  version "0.27.13"
-  resolved "https://registry.yarnpkg.com/@uptsmart/stargate/-/stargate-0.27.13.tgz#3c17a981b0bdad7dd12852909a1bd3a1d1a6e26c"
-  integrity sha512-p4RGJgZLygX2f8C7YS1+Y2yOSHh7A2fSt4kKgMmc3/tJ19D5D1XmEcmb1vyklqSJE1bqjBcJZAbSjway5lUezQ==
+"@uptsmart/stargate@^0.27.15":
+  version "0.27.15"
+  resolved "https://registry.yarnpkg.com/@uptsmart/stargate/-/stargate-0.27.15.tgz#08e5fd691c3b8084a69f8796bca5616dac84117c"
+  integrity sha512-hPB6wVqIcNka9DYL0Ld7MQCjdQds1MkGDbiVv4y+qkjPNuf+3ERi/9phsj5Dn9G7Lf9462Ht/CYKVxeADrF3wA==
   dependencies:
     "@confio/ics23" "^0.6.3"
     "@cosmjs/amino" "0.27.1"
