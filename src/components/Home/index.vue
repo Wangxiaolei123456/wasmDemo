@@ -1,8 +1,8 @@
 <template>
   <div class="Home">
-    <div class="hearder d-flex flex-row justify-space-between align-center">
+    <!-- <div class="hearder d-flex flex-row justify-space-between align-center">
       <div class="Title">Uptick-<span>EVM</span> NFT</div>
-    </div>
+    </div> -->
     <div class="btn">
       <button class="wallet" @click="connectWallet">Connect Wallet</button>
     </div>
@@ -26,7 +26,18 @@ export default {
   components: {},
   data() {
     return {
-
+       chainList: [
+        {
+          text: "Uptick Network",
+          id: 0,
+          chianId: "origin_1170-1",
+        },
+        {
+          text: "IRISnet",
+          id: 1,
+          chianId: "gon-irishub-1",
+        },
+      ],
     }
 
   },

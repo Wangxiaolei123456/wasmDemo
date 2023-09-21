@@ -1,44 +1,57 @@
 <template>
   <div class="Home">
     <div class="hearder d-flex flex-row justify-space-between align-center">
-      <div class="Title">Uptick-<span>EVM</span> NFT</div>
+      <div class="Title">Uptick</div>
       <div class="d-flex flex-row align-center">
         <div class="address">{{ evmAddress }}</div>
         <button class="disconnect ml-4" @click="disconnect">Disconnect</button>
       </div>
     </div>
-    <div class="content d-flex flex-row justify-space-between align-center">
+    <div class="content d-flex flex-row justify-space-between ">
       <div class="left">
         <div class="top d-flex flex-row justify-space-between align-center">
           <div class="d-flex flex-row justify-space-between align-center">
-            <div class="leftButton" style="margin-right: 10px;" @click="switchButton">
-              Switch to Uptick-COSMOS >
+            <div class="leftButton" style="margin-right: 10px;" @click="showChain">
+           {{currentSelect}}
             </div>
-            <div class="leftButton" @click="crossButtonRecord">
-              Cross-chain record
-            </div>
-          </div>
-          <div class="create" @click="showCreate">
-            Create
-          </div>
-             <div class="create" @click="wasmCreate">
-           wasmCreate
-          </div>
-          
-        </div>
-        <div class="list">
-          <div class="Cardlist d-flex align-content-start flex-wrap" v-if="list.length > 0">
-            <div class="listitem" v-for="(item, index) in list" :key="index">
-              <Card :selectedId="selectItem.id" :imgUrl="item.imgUrl" :name="item.name" :NFTInfo="item"
-                @click:item="onClickItem" />
-            </div>
-          </div>
-          <div v-else class="empty">This is empty, please create NFTs !</div>
+            <div class="chainList" v-if="isShowChainList">
+        <div class="list" v-for="(item, index) in chainList" :key="index">
+          <div class="name" @click="clickChain(item)">{{ item.text }}</div>
         </div>
       </div>
-      <div class="right">
-        <CreateNFT v-if="isShowCreate" @reload:data="reladData"></CreateNFT>
-        <ConvertCosmoss v-if="!isShowCreate" :NFTInfo="selectItem" @cross:showpop="crossShowPop"></ConvertCosmoss>
+      
+          </div>
+          <div class="create" @click="wasmCreate">
+           wasmCreate
+          </div>
+        
+        </div>
+        <div class="createNft mt-12">
+            <CreateNFT ></CreateNFT>
+        </div>
+       
+       
+      </div>
+      <div class="right d-flex flex-column">
+        
+          <div class="d-flex flex-row align-center">
+            <div  class="title-20">nftAddress :</div>
+             <input class="textInput" type="text" placeholder="NFT Address" v-model="nftAddressValue"> 
+             
+             </div>
+             <div class="d-flex flex-row align-center mt-6">
+              <div  class="title-20">nftId :</div>
+             <input class="textInput" type="text" placeholder="NFT ID" v-model="nftIdValue"> 
+         
+             </div>
+             <div class="d-flex flex-row mt-5">
+                <button type="submit" class="btn">NativeToEvm</button>
+              <button type="submit" class="btn ml-6">EvmToNative</button>
+              <button type="submit" class="btn ml-6">NativeToWasm</button>
+              <button type="submit" class="btn ml-6" @click="wasmToNative">WasmToNative</button>
+             </div>
+              
+            <!-- <div class="title-20"> nftId:  <input class="textInput" type="text" placeholder="NFT Id" v-model="nftIdValue" > </div> -->
       </div>
       <!-- <button @click="showPopup">弹出窗口</button> -->
       <popup :visible.sync="popupVisible"
@@ -58,7 +71,7 @@ import ConvertCosmoss from "./convertCosmoss";
 import Card from "../components/workCard/card.vue";
 import { getMyCardList, updateUser } from "@/api/home";
 import Popup from './popup';
-import { getEvmAddress,WasmNftMint } from "/src/keplr/uptick/wallet"
+import { getEvmAddress,WasmNftMint,convertWasmNFT2NFT } from "/src/keplr/uptick/wallet"
 
 
 
@@ -69,12 +82,33 @@ export default {
   data() {
     return {
       list: [],
+      nftIdValue:'',
       isShowLoading: false,
       isShowCreate: true,
       selectItem: {},
       popupVisible: false,
+      nftAddressValue:'',
       evmAddress: "",
-      chainType: "1170"
+      chainType: "1170",
+      isShowChainList:false,
+      currentSelect:'Cosmos Native',
+      chainList: [
+        {
+          text: "Cosmos Native",
+          id: 0,
+      
+        },
+        {
+          text: "EVM",
+          id: 1,
+  
+        },
+        {
+          text: "WASM",
+          id: 2,
+  
+        },
+      ],
     }
 
   },
@@ -103,6 +137,18 @@ export default {
     await this.getMyList();
   },
   methods: {
+   async wasmToNative(){
+      await convertWasmNFT2NFT(this.nftAddressValue,this.nftIdValue)
+
+    },
+    showChain() {
+      this.isShowChainList = !this.isShowChainList;
+    },
+    clickChain(item){
+      this.currentSelect = item.text
+      this.isShowChainList =false
+      
+  },
     disconnect() {
       localStorage.clear();
       this.$store.commit("SET_DID", "");
@@ -126,13 +172,10 @@ export default {
       this.popupVisible = true;
     },
     switchButton() {
-      // this.$router.push({ name: "chainCross" });
-      this.$router.push({ name: "cosmos" });
+    
+      // this.$router.push({ name: "cosmos" });
     },
-    crossButtonRecord() {
-      let url = "http://nftland.org/?address=" + this.$store.state.UptickAddress
-      window.open(url, '_blank')
-    },
+ 
    async wasmCreate(){
     let res = await WasmNftMint();
 
@@ -240,12 +283,17 @@ export default {
   height: 811px;
 
   .left {
-    flex-grow: 1;
+    
 
     position: relative;
     // background-color: #ed0091;
     height: 100%;
-    width: 100px;
+    width: 40%;
+     .createNft{
+         width: 450px;
+    height: 80%;
+    background-color: #1e0826;
+      }
 
     .top {
       height: 50px;
@@ -254,6 +302,7 @@ export default {
       position: absolute;
       left: 0;
       right: 0;
+     
 
       .leftButton {
         display: flex;
@@ -272,7 +321,31 @@ export default {
         cursor: pointer;
 
       }
+       .chainList {
+    position: absolute;
+    top: 45px;
+    left: 5px;
+    width: 190px;
+    height: 115px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    z-index: 200;
 
+    .list {
+      margin: 15px 0px 20px 20px;
+
+      .name {
+        cursor: pointer;
+        font-family: "AmpleSoft" !important;
+        font-size: 15px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 15px;
+        letter-spacing: 0px;
+        color: #fb599b;
+      }
+    }
+  }
       .create {
         margin-right: 30px;
         display: flex;
@@ -321,9 +394,47 @@ export default {
   }
 
   .right {
-    width: 450px;
-    height: 100%;
-    background-color: #1e0826;
+    width:50%;
+    .btn{
+      width: 125px;
+      height: 39px;
+      background-color: #9530fd;
+      border-radius: 19px;
+      font-family: Helvetica;
+      font-size: 13px;
+      font-weight: bold;
+      font-stretch: normal;
+      line-height: 15px;
+      letter-spacing: 0px;
+      color: #ffffff;
+    }
+    .title-20{
+      width:90px;
+      font-family: Helvetica;
+	font-size: 15px;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 20px;
+	letter-spacing: 0px;
+	color: #ffffff;
+    }
+   .textInput {
+         width: 80%;
+        height: 44px;
+        font-family: AvenirNext-Regular;
+        font-size: 15px;
+        font-weight: normal;
+        font-stretch: normal;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-image: linear-gradient(#e8daff,
+                #e8daff),
+            linear-gradient(#a17ae0,
+                #a17ae0);
+        background-blend-mode: normal,
+            normal;
+        border-radius: 5px;
+    }
   }
 
   /* 隐藏滚动条 */
