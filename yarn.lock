@@ -2551,10 +2551,10 @@
   dependencies:
     "@types/node" "*"
 
-"@uptsmart/cosmwasm-stargate@^0.27.3":
-  version "0.27.3"
-  resolved "https://registry.yarnpkg.com/@uptsmart/cosmwasm-stargate/-/cosmwasm-stargate-0.27.3.tgz#1b171fd244ccf999330672e9501dae447056d2a5"
-  integrity sha512-oTLPsBEnJpWL17m1yBGI+nZ+lcS+T/nHH+iczClcxZrLTMtZYdFmESTFlS0JoAni3FGYxFDG3WFix/CA/pWuFw==
+"@uptsmart/cosmwasm-stargate@^0.27.4":
+  version "0.27.4"
+  resolved "https://registry.yarnpkg.com/@uptsmart/cosmwasm-stargate/-/cosmwasm-stargate-0.27.4.tgz#d0f912b8382fc642433c75793ee20b0dd5febd1f"
+  integrity sha512-sOfBBZVFonPFcJl2Hh4+ET6IfvR7X64iHZItrrL4tX6LZy7DWPp9HGGR5MMAy+ZrmFiWEa4Vhhds+BeYwGnscQ==
   dependencies:
     "@cosmjs/amino" "^0.27.1"
     "@cosmjs/crypto" "^0.27.1"
@@ -2562,13 +2562,13 @@
     "@cosmjs/math" "^0.27.1"
     "@cosmjs/tendermint-rpc" "^0.27.1"
     "@cosmjs/utils" "^0.27.1"
-    "@uptsmart/proto-signing" "^0.27.7"
-    "@uptsmart/stargate" "^0.27.11"
+    "@uptsmart/proto-signing" "^0.27.8"
+    "@uptsmart/stargate" "^0.27.13"
     cosmjs-types "^0.5.2"
     long "^4.0.0"
     pako "^2.0.2"
 
-"@uptsmart/proto-signing@^0.27.7":
+"@uptsmart/proto-signing@^0.27.7", "@uptsmart/proto-signing@^0.27.8":
   version "0.27.7"
   resolved "https://registry.yarnpkg.com/@uptsmart/proto-signing/-/proto-signing-0.27.7.tgz#f2e4017ca189bf16ddb6092e382c37f1b7a4f135"
   integrity sha512-PsPc9Af16B8FigaSAfWDS7Ew60ccOgjCdW1htNrQ/zzMsE7ETyJ/zJSxWqWxs/NB71qtxH0was8V5yJKzXCYQw==
@@ -2580,36 +2580,17 @@
     long "^4.0.0"
     protobufjs "~6.10.2"
 
-"@uptsmart/proto-types@^0.27.7":
-  version "0.27.7"
-  resolved "https://registry.yarnpkg.com/@uptsmart/proto-types/-/proto-types-0.27.7.tgz#62b18942d10e1e743c5d6f732569195dada93a01"
-  integrity sha512-pBleAV/bnvlV+0YbKhgF5/E/nHzDulangV5IOH9VEgwr8hM2FPIlvWvXF9PUoxUWdcrr0cTzLPRyVUhEE/dMAA==
+"@uptsmart/proto-types@^0.27.8":
+  version "0.27.8"
+  resolved "https://registry.yarnpkg.com/@uptsmart/proto-types/-/proto-types-0.27.8.tgz#6c6436b76de67ed6c9473ab3743fb9aa8f5d4ba8"
+  integrity sha512-1LDq3Oj96XY+Ze5cxDpokpPL0SqwZhPZNyEZ6U85cAX9c1YfX7Zr2jqA1iY1LRv/OyIHDmI6nAEwqWCxT4b3UQ==
   dependencies:
     "@irisnet/irishub-sdk" "^2.0.1"
 
-"@uptsmart/stargate@^0.27.11":
-  version "0.27.11"
-  resolved "https://registry.yarnpkg.com/@uptsmart/stargate/-/stargate-0.27.11.tgz#53ba3cea1b85b5844f82964ed181105720942d09"
-  integrity sha512-9aysOz4gDYW71VBxZRqREZfuND9DR3BKFdbetsbHKOUOQ37rnR52/EUJcN/Ln1uxF/joQJGTN5eDaRoMai5NXg==
-  dependencies:
-    "@confio/ics23" "^0.6.3"
-    "@cosmjs/amino" "0.27.1"
-    "@cosmjs/encoding" "0.27.1"
-    "@cosmjs/math" "0.27.1"
-    "@cosmjs/stream" "0.27.1"
-    "@cosmjs/tendermint-rpc" "0.27.1"
-    "@cosmjs/utils" "0.27.1"
-    "@types/mocha" "^10.0.1"
-    "@uptsmart/proto-signing" "^0.27.7"
-    cosmjs-types "^0.4.0"
-    long "^4.0.0"
-    protobufjs "~6.10.2"
-    xstream "^11.14.0"
-
-"@uptsmart/stargate@^0.27.12":
-  version "0.27.12"
-  resolved "https://registry.yarnpkg.com/@uptsmart/stargate/-/stargate-0.27.12.tgz#04b5df3b0a80e208ab50c4c55d7e1263066d7ae3"
-  integrity sha512-IFxwjn8bvUkjCFtHv/bI/rVgdKAQsTt8ThQWttmjOn1wxFZ8rV4RoGhcGFAh31gbIqLy8LqKU9XjspMvGs0gHg==
+"@uptsmart/stargate@^0.27.13":
+  version "0.27.13"
+  resolved "https://registry.yarnpkg.com/@uptsmart/stargate/-/stargate-0.27.13.tgz#3c17a981b0bdad7dd12852909a1bd3a1d1a6e26c"
+  integrity sha512-p4RGJgZLygX2f8C7YS1+Y2yOSHh7A2fSt4kKgMmc3/tJ19D5D1XmEcmb1vyklqSJE1bqjBcJZAbSjway5lUezQ==
   dependencies:
     "@confio/ics23" "^0.6.3"
     "@cosmjs/amino" "0.27.1"
