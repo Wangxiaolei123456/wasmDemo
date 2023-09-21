@@ -12,7 +12,7 @@
     "@irisnet/irishub-sdk": "^3.0.1",
     "@uptsmart/proto-signing": "^0.27.7",
     "@uptsmart/proto-types": "^0.27.7",
-    "@uptsmart/stargate": "^0.27.11",
+    "@uptsmart/stargate": "^0.27.12",
     "bech32": "^2.0.0",
     "big-number": "^2.0.0",
     "core-js": "^3.8.3",

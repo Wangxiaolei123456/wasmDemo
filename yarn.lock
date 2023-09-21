@@ -2606,6 +2606,25 @@
     protobufjs "~6.10.2"
     xstream "^11.14.0"
 
+"@uptsmart/stargate@^0.27.12":
+  version "0.27.12"
+  resolved "https://registry.yarnpkg.com/@uptsmart/stargate/-/stargate-0.27.12.tgz#04b5df3b0a80e208ab50c4c55d7e1263066d7ae3"
+  integrity sha512-IFxwjn8bvUkjCFtHv/bI/rVgdKAQsTt8ThQWttmjOn1wxFZ8rV4RoGhcGFAh31gbIqLy8LqKU9XjspMvGs0gHg==
+  dependencies:
+    "@confio/ics23" "^0.6.3"
+    "@cosmjs/amino" "0.27.1"
+    "@cosmjs/encoding" "0.27.1"
+    "@cosmjs/math" "0.27.1"
+    "@cosmjs/stream" "0.27.1"
+    "@cosmjs/tendermint-rpc" "0.27.1"
+    "@cosmjs/utils" "0.27.1"
+    "@types/mocha" "^10.0.1"
+    "@uptsmart/proto-signing" "^0.27.7"
+    cosmjs-types "^0.4.0"
+    long "^4.0.0"
+    protobufjs "~6.10.2"
+    xstream "^11.14.0"
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.4.0.tgz#8d53a1e21347db8edbe54d339902583176de09f2"
