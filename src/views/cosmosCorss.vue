@@ -74,7 +74,7 @@ export default {
         console.log(this.$store.state.UptickAddress)//UptickAddress
         console.log(this.nameValue)
         window.addEventListener("keplr_keystorechange", keplrKeystoreChange);
-        // debugger
+        // // debugger
         //         const randomInt = new Date().getTime() % 100000 + 1;
         //         this.nameValue = "test_" + this.chainType + "_" + String(randomInt)
         //         this.descriptionValue = "test_" + this.chainType + "_" + String(randomInt)
@@ -90,7 +90,7 @@ export default {
 
             console.log(this.NFTInfo)
 
-            debugger
+            // debugger
             let denomId = this.NFTInfo.nftAddress
             let nftId = this.NFTInfo.nftId
             this.isShowLoading = true
@@ -101,7 +101,7 @@ export default {
                 this.isShowLoading = false
                 this.$toast("success", "Convert Success")
                 this.$emit('withdraw:showpop');
-                debugger
+                // debugger
             } catch (error) {
                 this.isShowLoading = false
                 this.$toast("error", error)
@@ -154,7 +154,7 @@ export default {
                        this.$emit('crossIris');
                 })
               
-                debugger
+                // debugger
             } catch (error) {
                 this.isShowLoading = false
                 this.$toast("error", error)

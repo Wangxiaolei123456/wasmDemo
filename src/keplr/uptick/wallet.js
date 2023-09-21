@@ -7,7 +7,10 @@ const { bech32 } = require('bech32');
 const toHexString = bytes =>
     bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
 
-    import { CosmWasmClient,SigningCosmWasmClient, Secp256k1HdWallet } from "cosmwasm";
+import { 
+    SigningCosmWasmClient, 
+    Secp256k1HdWallet 
+} from "@uptsmart/cosmwasm-stargate";
 import {
     SigningStargateClient,
     StargateClient,
@@ -22,8 +25,6 @@ const irisChainId = "gon-irishub-1";
 const uptickUrl = window.location.protocol + "//" + window.location.host + "/uptick";
 const irisUrl = window.location.protocol + "//" + window.location.host + "/iris";
 const REGISTRY_CONTRACT =  'uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s59l95g'
-
-
 
 
 export async function convertCosmosNFT2ERC(denomId, nftId) {
@@ -55,7 +56,7 @@ export async function convertCosmosNFT2ERC(denomId, nftId) {
         const result = await sendMsgsTx(uptickAddress, [msg], 1000000, "");
         console.log(result)
         console.log(JSON.parse(result.rawLog))
-        debugger
+        // debugger
         if (result.code == 0) {
 
             const logInfo = JSON.parse(result.rawLog)
@@ -274,7 +275,7 @@ async function sendMsgsTx(address, msgs, amount, data, isIris = false) {
         )
 
     }
-    debugger
+    // debugger
     console.log("###xxl sendMsgsTx", [address, msgs, fee, data]);
     const result = await client.sendMsgsTx(address, msgs, fee, data);
     console.log("###xxl result", result);
@@ -287,51 +288,77 @@ async function sendMsgsTx(address, msgs, amount, data, isIris = false) {
 export async function WasmNftMint(
   
 ) {
+
+    console.log(1);
     // 随机生成助记词
-    const wallet = await Secp256k1HdWallet.generate();
-    const mnemonic = await wallet.mnemonic;
-    console.log("Mnemonic:", mnemonic);
+    // const wallet = await Secp256k1HdWallet.generate();
+    // const mnemonic = await wallet.mnemonic;
+    // console.log("Mnemonic:", mnemonic);
     const offlineSigner = await window.getOfflineSigner(chainId);
 
-    // let client = await CosmWasmClient.connect(uptickUrl);
-
-    const walletMemon = await Secp256k1HdWallet.fromMnemonic(mnemonic);
+    // // let client = await CosmWasmClient.connect(uptickUrl);
+    // console.log(2);
+    // const walletMemon = await Secp256k1HdWallet.fromMnemonic(mnemonic);
 
     // Using
+    console.log(3);
     const client = await SigningCosmWasmClient.connectWithSigner(
-    uptickUrl,
-    walletMemon,
+        uptickUrl,
+        offlineSigner,
     );
     console.log(client);
 
+    console.log(4);
     let accountInfo = await getAccountInfo()
     console.log("accountInfo",accountInfo);
-    const handleMsg = { name: "smile" };
+    // const handleMsg = { name: "smile" };
+    const handleMsg = {"mint": {"token_id":"abc123", "owner":"uptick103rx84uqa7n4mtmz8f88n4g9m7973rxutrtn7d", "token_uri":"http://test.com"}}
     const coins = { denom: "auptick", amount: "1000000" };
     const gas = "200000";
 
+    console.log(5.1);
+    let result
+    try{
+        // senderAddress：发送者的地址，也就是执行合约的账户地址。
+        // contractAddress：要执行的合约的地址。
+        // handleMsg：要传递给合约的消息，可以是一个字符串或者一个对象。
+        // coins：要发送给合约的货币数量，可以是一个字符串或者一个对象。
+        // gas：用于执行合约的gas数量，可以是一个字符串或者一个数字。
 
-    // senderAddress：发送者的地址，也就是执行合约的账户地址。
-    // contractAddress：要执行的合约的地址。
-    // handleMsg：要传递给合约的消息，可以是一个字符串或者一个对象。
-    // coins：要发送给合约的货币数量，可以是一个字符串或者一个对象。
-    // gas：用于执行合约的gas数量，可以是一个字符串或者一个数字。
- let result = await client.execute(
-    accountInfo.bech32Address,
-    REGISTRY_CONTRACT,
-    handleMsg,
-    coins,
-    gas
-  );
+        console.log("xxl param is ",[
+            accountInfo.bech32Address,
+            REGISTRY_CONTRACT,
+            handleMsg,
+            coins,
+            gas
+        ]);
+
+        // export interface StdFee {
+        //     readonly amount: readonly Coin[];
+        //     readonly gas: string;
+        // }
+        let fee = {
+            amount:[coins],
+            gas:"200000"
+        }
+
+        result = await client.execute(
+            accountInfo.bech32Address,
+            REGISTRY_CONTRACT,
+            handleMsg,
+            fee
+        );
+
+        console.log("5.4 xxl result is : ",result);
+    }catch(e){
+        console.log(5.5); 
+        console.log("error is ",e);
+    }
 
 
-
-
-
-
-   
-    console.log("result",result);
-    return result;
+  
+  console.log("xxl 6 result ",result); 
+  return result;
 
 }
 
@@ -361,7 +388,7 @@ export async function issueUptickDenomAndMint(
         value
     }
     msgs.push(msg);
-    // debugger
+    // // debugger
     for (var i = 0; i < amount; i++) {
 
         let nftID = getNftId();

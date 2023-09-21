@@ -56,7 +56,7 @@ export default {
       // Iris Address
       let account = await getkeplrIrisAddress();
       let evmAccount = await getMatamaskWeb3();
-      debugger
+      // debugger
       this.$store.commit("SET_DID", account.toLowerCase());
       // uptick Address
       let uptickAccount = await getkeplrUptickAddress();

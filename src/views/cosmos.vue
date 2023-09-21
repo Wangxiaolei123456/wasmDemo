@@ -129,7 +129,7 @@ export default {
       this.selectItem = item
     },
     async getMyList(selectChain) {
-      debugger
+      // debugger
       this.list = []
       console.log(selectChain)
       this.isShowLoading = true;

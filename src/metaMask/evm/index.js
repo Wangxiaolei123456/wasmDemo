@@ -40,7 +40,7 @@ export async function getMyBalance() {
 
 export async function getAccountInfo() {
     await checkmetamaskconnect();
-    debugger
+    // debugger
     let account = await base.getAccounts();
     return account;
 }
@@ -86,7 +86,7 @@ function getDenomId(name) {
 
 
 export async function mintNft(toAddress, tokenId) {
-    debugger
+    // debugger
     let transferFrom = await uptick721.mintNft(toAddress, tokenId, "", "");
     console.log(transferFrom);
 

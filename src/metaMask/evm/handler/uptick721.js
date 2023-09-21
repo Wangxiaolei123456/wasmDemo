@@ -89,7 +89,7 @@ export async function mintNft(toAddress, contractAddress, tokenId, name, uriHash
             { gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit }
         );
         console.log("result", result);
-        debugger
+        // debugger
         return {
             "address": toAddress,
             "contractAddress": contractAddress,

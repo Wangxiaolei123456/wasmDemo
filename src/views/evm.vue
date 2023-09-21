@@ -188,6 +188,7 @@ export default {
       this.isShowCreate = true
     },
     async getMyList(selectChain) {
+      // debugger
       console.log(selectChain)
       this.isShowLoading = true;
       let params = {

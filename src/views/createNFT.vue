@@ -70,9 +70,9 @@ export default {
         this.sender = this.$store.state.UptickAddress
 
         console.log(this.sender)
-        debugger
-        window.addEventListener("keplr_keystorechange", keplrKeystoreChange);
         // debugger
+        window.addEventListener("keplr_keystorechange", keplrKeystoreChange);
+        // // debugger
         // const randomInt = new Date().getTime() % 100000 + 1;
         // this.nameValue = "test_evm_" + String(randomInt)
         // this.descriptionValue = "test_evm_" + String(randomInt)
@@ -148,7 +148,7 @@ export default {
                     let txResult = await mintNft(toAddress, contractAddress, tokenId, this.nameValue, uriHash)
                     console.log(txResult)
                     await this.requestCreateSuccess(txResult)
-                    debugger
+                    // debugger
                     let title = "Create Success"
                     this.$mtip({
                         title: title,
@@ -159,7 +159,7 @@ export default {
 
                 }).catch(error => {
                     console.log(error);
-                    debugger
+                    // debugger
                     this.isShowLoading = false
                     this.$mtip({
                         title: error.message,
@@ -167,7 +167,7 @@ export default {
                 })
             } catch (error) {
                 console.log(error);
-                debugger
+                // debugger
                 this.isShowLoading = false
                 this.$mtip({
                     title: error.message,
@@ -175,7 +175,7 @@ export default {
             }
         },
         onDrop(event) {
-            debugger
+            // debugger
             event.preventDefault(); // 阻止浏览器默认的拖动行为
             const file = event.dataTransfer.files[0]; // 获取上传的文件
             this.requestUploadFile(file)
@@ -208,7 +208,7 @@ export default {
             return getNftImg(hash)
         },
         checkInput() {
-            debugger
+            // debugger
             this.isInputEmpty =
                 this.nameValue.trim() === '' ||
                 this.descriptionValue.trim() === '' ||
