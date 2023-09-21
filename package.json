@@ -11,7 +11,7 @@
     "@uptsmart/cosmwasm-stargate": "^0.27.6",
     "@irisnet/irishub-sdk": "^3.0.1",
     "@uptsmart/proto-signing": "^0.27.7",
-    "@uptsmart/proto-types": "^0.27.8",
+    "@uptsmart/proto-types": "^0.27.9",
     "@uptsmart/stargate": "^0.27.15",
     "bech32": "^2.0.0",
     "big-number": "^2.0.0",
