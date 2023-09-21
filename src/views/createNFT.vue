@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-column justify-space-center align-center">
-        <div class="create d-flex flex-row justify-space-center align-center">
+        <!-- <div class="create d-flex flex-row justify-space-center align-center">
             <div class="addButton" @click="chooseFile" v-on:dragover.prevent v-on:drop="onDrop">
                 <input type="file" accept="image/*" ref="fileInput" style="display: none;" @change="uploadFile">
                 <img v-if="uploadedImageHash == ''" class="addImage"
@@ -8,8 +8,9 @@
                 <img class="uploadImage" :src="loadeImageUrl(uploadedImageHash)" v-if="uploadedImageHash != ''">
             </div>
 
-        </div>
-        <div class="name" style="padding-top: 20px;">
+        </div> -->
+        
+        <div class="name" style="padding-top: 150px;">
             <div style="display: flex; justify-content: end;">
                 <div class="title" style="text-align: right;">{{ nameValue.length }}/80</div>
             </div>
@@ -21,7 +22,7 @@
                 maxlength="800"></textarea>
         </div>
         <div style="width: 90%;">
-            <button class="subBtn" @click="submitButton" :disabled="isInputEmpty">Create NFT</button>
+            <button class="subBtn" @click="submitButton" >Create NFT</button>
         </div>
         <loading :isShowLoading="isShowLoading"></loading>
         <uComponents ref="ucom"></uComponents>
