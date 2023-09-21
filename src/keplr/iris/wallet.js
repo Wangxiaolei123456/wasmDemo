@@ -614,7 +614,7 @@ export async function getIirsAccoutInfo(params) {
 		console.log("xxl accountKeplr 000------");
 		console.log(accountKeplr);
 
-	debugger
+	// debugger
 	return {name:accountKeplr.name,address:accountKeplr.bech32Address}
 }
 

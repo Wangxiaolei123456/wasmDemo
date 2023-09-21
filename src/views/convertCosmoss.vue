@@ -74,7 +74,7 @@ export default {
         async submitButton() {
             console.log(this.NFTInfo)
 
-            debugger
+            // debugger
             let contractAddress = this.NFTInfo.nftAddress
             let tokenId = this.NFTInfo.nftId
             this.isShowLoading = true
@@ -85,7 +85,7 @@ export default {
                 this.isShowLoading = false
                 this.$toast("success", "Convert Success")
                 this.$emit('cross:showpop');
-                debugger
+                // debugger
             } catch (error) {
                 this.isShowLoading = false
                 this.$toast("error", error)

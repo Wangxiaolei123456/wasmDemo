@@ -29,7 +29,7 @@ export function uploadJSON2IPFS(object) {
       }
   }
   
-    // debugger
+    // // debugger
     return $postThird('/upJson', formData, {
         headers: {
           'Content-Type': 'application/octet-stream',
