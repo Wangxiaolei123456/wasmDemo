@@ -45,15 +45,28 @@
          
              </div>
              <div class="d-flex flex-row mt-5">
-                <button type="submit" class="btn"  @click="wasmToNative">WasmToNative</button>
-                <button type="submit" class="btn ml-6" @click="NativeToEvm">NativeToEvm</button>
+              <button type="submit" class="btn"  @click="wasmToNative">WasmToNative</button>
+              <button type="submit" class="btn ml-6" @click="NativeToEvm">NativeToEvm</button>
               <button type="submit" class="btn ml-6" @click="EvmToNative">EvmToNative</button>
               <button type="submit" class="btn ml-6" @click="NativeToWasm">NativeToWasm</button>
-             
+              <!-- <button type="submit"  class="btn ml-6" @click="searchNft">search</button>
+              -->
+             </div>
+             <!-- <div class="content mt-6">
+               <div class="title-20">sssss</div>
+             </div> -->
+              <div class="d-flex flex-row mt-5">
+               <button type="submit"  class="btn " @click="searchNft">searchWasmNft</button>
+              <button type="submit" class="btn ml-6"  @click="searchNativeNft">searchNativeNft</button>
+              <button type="submit" class="btn ml-6" @click="searchEvmNft">searchEvmNft</button>
+              
+              <!-- <button type="submit"  class="btn ml-6" @click="searchNft">search</button>
+              -->
              </div>
               
             <!-- <div class="title-20"> nftId:  <input class="textInput" type="text" placeholder="NFT Id" v-model="nftIdValue" > </div> -->
       </div>
+
       <!-- <button @click="showPopup">弹出窗口</button> -->
       <popup :visible.sync="popupVisible"
         title="Cross chain conversion completed, switch to Uptick - COSMOS chain for cross chain operation"
@@ -71,10 +84,9 @@ import CreateNFT from "./createNFT";
 import ConvertCosmoss from "./convertCosmoss";
 import Card from "../components/workCard/card.vue";
 import { getMyCardList, updateUser } from "@/api/home";
+import { ownerOf } from "/src/metaMask/evm/handler/uptick721.js"
 import Popup from './popup';
-import { getEvmAddress,WasmNftMint,convertWasmNFT2NFT,convertNFT2Wasm,convertCosmosNFT2ERC,convertERC2CosmosNFT } from "/src/keplr/uptick/wallet"
-
-
+import { getEvmAddress,WasmNftMint,convertWasmNFT2NFT,convertNFT2Wasm,convertCosmosNFT2ERC,convertERC2CosmosNFT,queryNftFromWasm} from "/src/keplr/uptick/wallet"
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -91,6 +103,7 @@ export default {
       nftAddressValue:'',
       evmAddress: "",
       chainType: "1170",
+      uptickAddress:'',
       isShowChainList:false,
       currentSelect:'Cosmos Native',
       chainList: [
@@ -111,36 +124,65 @@ export default {
         },
       ],
     }
-
   },
   filters: {
 
   },
-  async mounted() {
-     
+  async mounted() { 
     let uptickAddress = this.$store.state.UptickAddress
+    this.uptickAddress = uptickAddress
+    this.evmAddress = getEvmAddress(uptickAddress)
     console.log(uptickAddress)
     if (uptickAddress == "") {
       this.$router.push({ name: "Home" });
       return
     }
 
-   
   },
   methods: {
    async wasmToNative(){
-      await convertWasmNFT2NFT(this.nftAddressValue,this.nftIdValue)
+     let hash = await convertWasmNFT2NFT(this.nftAddressValue,this.nftIdValue)
+     if(hash){
+          this.$mtip({
+               title:hash,
+          });
+     }
 
     },
    async NativeToEvm(){
-        await convertCosmosNFT2ERC(this.nftAddressValue,this.nftIdValue)
+      let NativeToEvmResult =  await convertCosmosNFT2ERC(this.nftAddressValue,this.nftIdValue)
+      this.EvmcontractAddress = NativeToEvmResult.contractAddress
+      this.EvmtokenId = NativeToEvmResult.tokenId
     },
       async EvmToNative(){
-        await convertERC2CosmosNFT(this.nftAddressValue,this.nftIdValue)
+       let result = await convertERC2CosmosNFT(this.nftAddressValue,this.nftIdValue) 
+         
+       const {uptickNftAddress,denomId} = result
+       let text = 'Evm contarctAddress :'+uptickNftAddress +'Evm TokenId :'+denomId
+         this.$mtip({
+               title:text,
+          });
+
     },
    async NativeToWasm(){
       await convertNFT2Wasm(this.nftAddressValue,this.nftIdValue)
    },
+  async searchNft(){
+    await queryNftFromWasm();
+   },
+  async searchNativeNft(){
+    //https://rest.origin.uptick.network/uptick/collection/nfts/uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s59l95g/wasm006
+      window.open('https://rest.origin.uptick.network/uptick/collection/nfts?owner='+ this.uptickAddress,'_blank')
+  },
+  async searchEvmNft(){
+ let result = await ownerOf(this.nftAddressValue,this.nftIdValue);
+ console.log("result",result);
+ let text = '当前资产所在账户'+result
+  this.$mtip({
+               title:text,
+          });
+
+  },
 
     
     showChain() {
@@ -397,6 +439,20 @@ export default {
 
   .right {
     width:50%;
+    .content{
+      width: 100%;
+      height:300px;
+      background-color: #ffffff;
+      .title-20{
+        font-family: AvenirNext-Medium;
+	font-size: 15px;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 20px;
+	letter-spacing: 0px;
+	color: #766983;
+      }
+    }
     .btn{
       width: 125px;
       height: 39px;

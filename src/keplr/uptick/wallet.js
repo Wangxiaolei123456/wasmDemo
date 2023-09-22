@@ -16,6 +16,8 @@ import {
     StargateClient,
 } from '@uptsmart/stargate'
 
+
+
 import {
     getRanHex
 } from "../../utils/helper";
@@ -26,7 +28,33 @@ const uptickUrl = window.location.protocol + "//" + window.location.host + "/upt
 const irisUrl = window.location.protocol + "//" + window.location.host + "/iris";
 const REGISTRY_CONTRACT =  'uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s59l95g'
 
+export async function queryNftFromWasm(){
 
+    const offlineSigner = await window.getOfflineSigner(chainId);
+
+
+    const client = await SigningCosmWasmClient.connectWithSigner(
+        uptickUrl,
+        offlineSigner,
+    );
+
+    let accountInfo = await getAccountInfo()
+   
+    try{
+        
+
+      let  result = await client.queryContractSmart(
+            REGISTRY_CONTRACT,
+            {"balance":{"address":accountInfo.bech32Address}}  
+        );
+        console.log("queryContractSmart",result);
+        return result
+    }catch(e){
+        console.log(5.5); 
+        console.log("error is ",e);
+        return e
+    }
+}
 
 export async function convertWasmNFT2NFT(denomId, nftId) {
 
@@ -56,20 +84,8 @@ debugger
         // debugger
         if (result.code == 0) {
 
-            const logInfo = JSON.parse(result.rawLog)
-
-            let contractAddress = logInfo[0].events[0].attributes[4].value
-            let tokenId = logInfo[0].events[0].attributes[5].value
-            console.log("contractAddress, tokenId", contractAddress, tokenId)
             
-            return {
-                "evmNftAddress": contractAddress,
-                "evmNftId": tokenId,
-                "evmOwner": evmAddress,
-                "nftAddress": denomId,
-                "nftId": nftId,
-                "owner": uptickAddress
-            };
+            return result.transactionHash
         } else {
             throw new Error(result.rawLog)
         }
@@ -94,11 +110,14 @@ export async function convertNFT2Wasm(denomId, nftId) {
             value: [
                 denomId,
                 nftId,
-                evmAddress,
+                uptickAddress,
                 uptickAddress,
                 "",//contractAddress
                 ""]//tokenId
         }
+
+        console.log("wxl --- convertNFT2Wasm",msg );
+        debugger
         const result = await sendMsgsTx(uptickAddress, [msg], 1000000, "");
         console.log(result)
         console.log(JSON.parse(result.rawLog))
@@ -189,7 +208,7 @@ export async function convertCosmosNFT2ERC(denomId, nftId) {
 export async function convertERC2CosmosNFT(contractAddress, tokenId) {
 
     try {
-
+debugger
         let uptickAccount = await getAccountInfo();
         let uptickAddress = uptickAccount.bech32Address
         let evmAddress = getEvmAddress(uptickAddress)
@@ -228,10 +247,7 @@ export async function convertERC2CosmosNFT(contractAddress, tokenId) {
             return {
                 "uptickNftAddress": denomId,
                 "uptickNftId": nftId,
-                "uptickOwner": uptickAddress,
-                "nftAddress": contractAddress,
-                "nftId": tokenId,
-                "owner": evmAddress
+               
             };
         } else {
             throw new Error(result.rawLog)

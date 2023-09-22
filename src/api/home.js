@@ -3,7 +3,6 @@ const service = axios.create({
     timeout: 300000,
   });
 
-
 export function getChainListInfo(params) {
     return service.post('/gonapi/nft/getCrossChainListByTxid', 
         transObjToParamStr(params)

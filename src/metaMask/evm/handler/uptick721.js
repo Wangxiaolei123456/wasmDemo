@@ -62,7 +62,34 @@ export async function deployContract(name) {
         })
     })
 }
+export async function ownerOf(contractAddress,tokenId){
+    debugger
+    try {
+        const account = await base.getAccounts();
+        let address = await account.getAddress();
+        let chainId = await account.getChainId();
 
+      
+        let contract
+        if (!contract) {
+            contract = await connect(contractAddress, abi, account);
+        }
+        let gasSetting = await base.getGasPriceAndGasLimit();
+        console.log("gasSetting", gasSetting);
+        let result = await contract.ownerOf(
+      
+            tokenId, 
+            { gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit }
+        );
+        console.log("result ownerOf ---", result);
+
+        // debugger
+        return result;
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 export async function mintNft(toAddress, contractAddress, tokenId, name, uriHash) {
     try {
         const account = await base.getAccounts();
