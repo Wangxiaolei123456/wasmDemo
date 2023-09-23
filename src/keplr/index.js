@@ -72,6 +72,7 @@ import { getIirsAccoutInfo } from "./iris/wallet";
 }
 
 async function addUptickNetwork() { 
+  debugger
   
 
   if (!window.getOfflineSigner || !window.keplr) {
@@ -90,7 +91,7 @@ async function addUptickNetwork() {
              "chainName": "Uptick Test",
              // "rpc": "https://rpc.origin.uptick.network",
              "rpc": "http://47.242.107.228:26657",
-             "rest": "https://47.242.107.228:1317",
+             "rest": "http://47.242.107.228:1317",
              "stakeCurrency": {
                "coinDenom": "UPTICK",
                "coinMinimalDenom": "aupitck",
