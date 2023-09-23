@@ -23,6 +23,9 @@ import {
 const chainId = "uptick_7000-1";
 const irisChainId = "uptick_7000-1";
 const uptickUrl = window.location.protocol + "//" + window.location.host + "/uptick";
+//const uptickUrl = "http://47.242.107.228:26657";
+
+
 const irisUrl = window.location.protocol + "//" + window.location.host + "/iris";
 const REGISTRY_CONTRACT =  'uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s59l95g'
 
