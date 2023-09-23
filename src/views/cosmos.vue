@@ -66,7 +66,7 @@ export default {
       popupVisible: false,
       uptickAddress: "",
       title: "",
-      chainType: "origin_1170-1"
+      chainType: "uptick_7000-1"
     }
 
   },

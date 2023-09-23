@@ -30,12 +30,12 @@ export default {
         {
           text: "Uptick Network",
           id: 0,
-          chianId: "origin_1170-1",
+          chianId: "uptick_7000-1",
         },
         {
           text: "IRISnet",
           id: 1,
-          chianId: "gon-irishub-1",
+          chianId: "uptick_7000-1",
         },
       ],
     }

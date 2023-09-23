@@ -16,14 +16,12 @@ import {
     StargateClient,
 } from '@uptsmart/stargate'
 
-
-
 import {
     getRanHex
 } from "../../utils/helper";
 
-const chainId = "origin_1170-1";
-const irisChainId = "gon-irishub-1";
+const chainId = "uptick_7000-1";
+const irisChainId = "uptick_7000-1";
 const uptickUrl = window.location.protocol + "//" + window.location.host + "/uptick";
 const irisUrl = window.location.protocol + "//" + window.location.host + "/iris";
 const REGISTRY_CONTRACT =  'uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s59l95g'
@@ -31,7 +29,6 @@ const REGISTRY_CONTRACT =  'uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3t
 export async function queryNftFromWasm(){
 
     const offlineSigner = await window.getOfflineSigner(chainId);
-
 
     const client = await SigningCosmWasmClient.connectWithSigner(
         uptickUrl,
@@ -43,10 +40,26 @@ export async function queryNftFromWasm(){
     try{
         
 
-      let  result = await client.queryContractSmart(
+    //   let  result = await client.queryContractSmart(
+    //         REGISTRY_CONTRACT,
+    //         {"balance":{"address":accountInfo.bech32Address}}  
+    //     );
+
+
+        //xxl demo 1 add get for token_id
+        // let  result = await client.queryContractSmart(
+        //     REGISTRY_CONTRACT,
+        //     {"all_nft_info":{"token_id":"abc123"}}  
+        // );
+
+         //xxl demo 2 add get for token_id
+        let  result = await client.queryContractSmart(
             REGISTRY_CONTRACT,
-            {"balance":{"address":accountInfo.bech32Address}}  
+            {"tokens":{"owner":"uptick103rx84uqa7n4mtmz8f88n4g9m7973rxutrtn7d"}}  
         );
+
+
+
         console.log("queryContractSmart",result);
         return result
     }catch(e){
@@ -348,7 +361,7 @@ export async function uptick2Iris(denomId, nftId) {
 }
 
 
-export async function getAccountInfo(pChainId = "origin_1170-1") {
+export async function getAccountInfo(pChainId = "uptick_7000-1") {
 
     console.log("xxl getAccountInfo ", pChainId);
     try {

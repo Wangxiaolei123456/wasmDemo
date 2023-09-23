@@ -13,7 +13,7 @@ import {
 let config = {
 	node: "https://rpc-gon-irishub.omniflix.io",
 	chainNetwork: "https://api-gon-irishub.omniflix.io",
-	chainId: "gon-irishub-1",
+	chainId: "uptick_7000-1",
 	//gas: process.env.VUE_APP_IRIS_BASE_GAS,
 	gas: '250000',
 	fee: {
