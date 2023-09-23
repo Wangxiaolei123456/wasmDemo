@@ -90,11 +90,11 @@ async function addUptickNetwork() {
               },
               bech32Config: {
                   bech32PrefixAccAddr: "uptick",
-                  bech32PrefixAccPub: "uptick" + "pub",
-                  bech32PrefixValAddr: "uptick" + "valoper",
-                  bech32PrefixValPub: "uptick" + "valoperpub",
-                  bech32PrefixConsAddr: "uptick" + "valcons",
-                  bech32PrefixConsPub: "uptick" + "valconspub",
+                  bech32PrefixAccPub: "uptickpub",
+                  bech32PrefixValAddr: "uptickvaloper",
+                  bech32PrefixValPub: "uptickvaloperpub",
+                  bech32PrefixConsAddr: "uptickvalcons",
+                  bech32PrefixConsPub: "uptickvalconspub",
               },
               currencies: [ 
                   { 
@@ -123,6 +123,13 @@ async function addUptickNetwork() {
                   coinDecimals: 18,
                   coinGeckoId: "cosmos",
               },
+                features: [
+               "ibc-transfer",
+               "ibc-go",
+               "eth-address-gen",
+               "eth-key-sign"
+             ],
+             beta: true
             //  "chainId": "uptick_7000-1",
             //  "chainName": "Uptick Test",
             //  // "rpc": "https://rpc.origin.uptick.network",

@@ -421,8 +421,8 @@ async function sendMsgsTx(address, msgs, amount, data, isIris = false) {
 export async function WasmNftMint(nftID,token_uri
   
 ) {
-
-    console.log(1);
+    debugger
+    console.log('chainID',chainId);
     // 随机生成助记词
     // const wallet = await Secp256k1HdWallet.generate();
     // const mnemonic = await wallet.mnemonic;
