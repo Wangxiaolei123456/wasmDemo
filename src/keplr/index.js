@@ -111,9 +111,9 @@ async function addUptickNetwork() {
                       coinDecimals: 18,
                       coinGeckoId: "cosmos",
                       gasPriceStep: {
-                          low: 0.01,
-                          average: 0.025,
-                          high: 0.04,
+                        "low": 20000000000,
+                        "average": 25000000000,
+                        "high": 40000000000
                       },
                   },
               ],
