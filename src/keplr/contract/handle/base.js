@@ -8,15 +8,15 @@ export async function addNetwork() {
         await window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [{
-                chainId: '0x492',
-                chainName: 'Uptick Origin',
+                chainId: '0x1b58',
+                chainName: 'Uptick Test',
                 nativeCurrency: {
                     name: 'UptickToken',
-                    symbol: 'UOC', // 2-6 characters long
+                    symbol: 'UPTICK', // 2-6 characters long
                     decimals: 18,
                   
                 },
-                rpcUrls: ['https://json-rpc.origin.uptick.network'],
+                rpcUrls: ['http://47.242.107.228:26657'],
                 blockExplorerUrls: ['https://evm-explorer.origin.uptick.network/'],
                
                 

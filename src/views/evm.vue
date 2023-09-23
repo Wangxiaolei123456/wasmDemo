@@ -168,11 +168,14 @@ export default {
       await convertNFT2Wasm(this.nftAddressValue,this.nftIdValue)
    },
   async searchNft(){
-    await queryNftFromWasm();
+    let result = await queryNftFromWasm();
+      this.$mtip({
+               title:result,
+          });
    },
   async searchNativeNft(){
     //https://rest.origin.uptick.network/uptick/collection/nfts/uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s59l95g/wasm006
-      window.open('https://rest.origin.uptick.network/uptick/collection/nfts?owner='+ this.uptickAddress,'_blank')
+      window.open('http://47.242.107.228:1317/uptick/collection/nfts?owner='+ this.uptickAddress,'_blank')
   },
   async searchEvmNft(){
  let result = await ownerOf(this.nftAddressValue,this.nftIdValue);

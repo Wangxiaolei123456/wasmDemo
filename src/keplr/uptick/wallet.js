@@ -58,13 +58,13 @@ export async function queryNftFromWasm(){
          //xxl demo 2 add get for token_id
         let  result = await client.queryContractSmart(
             REGISTRY_CONTRACT,
-            {"tokens":{"owner":"uptick103rx84uqa7n4mtmz8f88n4g9m7973rxutrtn7d"}}  
+            {"tokens":{"owner":accountInfo.bech32Address}}  
         );
 
 
 
         console.log("queryContractSmart",result);
-        return result
+        return result.tokens
     }catch(e){
         console.log(5.5); 
         console.log("error is ",e);
@@ -251,7 +251,7 @@ debugger
                 ""]//nftId
         }
 
-        const result = await sendMsgsTx(uptickAddress, [msg], 1000000, "");
+        const result = await sendMsgsTx(uptickAddress, [msg], 10000000, "");
         console.log(result)
 
         if (result.code == 0) {

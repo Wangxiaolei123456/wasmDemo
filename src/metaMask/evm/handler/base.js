@@ -1,7 +1,8 @@
 import { ethers } from "ethers";
 let { bech32 } = require('bech32');
 import Web3 from 'web3';
-const web3Obj = new Web3("https://json-rpc.origin.uptick.network");
+const web3Obj = new Web3("http://47.242.107.228:26657");
+
 
 const fromHexString = hexString =>
     new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
@@ -57,15 +58,15 @@ export async function addNetwork() {
         await window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [{
-                chainId: '0x492',
-                chainName: 'Uptick Origin',
+                chainId: '0x1b58',
+                chainName: 'Uptick Test',
                 nativeCurrency: {
                     name: 'UptickToken',
-                    symbol: 'UOC', // 2-6 characters long
+                    symbol: 'UPTICK', // 2-6 characters long
                     decimals: 18,
 
                 },
-                rpcUrls: ['https://json-rpc.origin.uptick.network'],
+                rpcUrls: ['http://47.242.107.228:26657'],
                 blockExplorerUrls: ['https://evm-explorer.origin.uptick.network/'],
             }],
         });
