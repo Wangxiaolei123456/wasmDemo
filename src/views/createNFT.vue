@@ -47,7 +47,7 @@ export default {
         return {
             uploadedImageHash: '',//默认的图片,
             nameValue: '',// 初始化输入框的值为空
-            descriptionValue: '',
+            descriptionValue: 'http://ipfs.upticknft.com/ipfs',
             isInputEmpty: true,
             isShowLoading: false,
             sender: '',

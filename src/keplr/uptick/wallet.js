@@ -140,20 +140,7 @@ export async function convertNFT2Wasm(denomId, nftId) {
         // debugger
         if (result.code == 0) {
 
-            const logInfo = JSON.parse(result.rawLog)
-
-            let contractAddress = logInfo[0].events[0].attributes[4].value
-            let tokenId = logInfo[0].events[0].attributes[5].value
-            console.log("contractAddress, tokenId", contractAddress, tokenId)
-            
-            return {
-                "evmNftAddress": contractAddress,
-                "evmNftId": tokenId,
-                "evmOwner": evmAddress,
-                "nftAddress": denomId,
-                "nftId": nftId,
-                "owner": uptickAddress
-            };
+            return result.transactionHash
         } else {
             throw new Error(result.rawLog)
         }
@@ -207,10 +194,7 @@ export async function convertCosmosNFT2ERC(denomId, nftId) {
             return {
                 "evmNftAddress": contractAddress,
                 "evmNftId": tokenId,
-                "evmOwner": evmAddress,
-                "nftAddress": denomId,
-                "nftId": nftId,
-                "owner": uptickAddress
+                
             };
         } else {
             throw new Error(result.rawLog)

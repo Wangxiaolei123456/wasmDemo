@@ -21,9 +21,9 @@
       </div>
       
           </div>
-          <div class="create" @click="wasmCreate">
+          <!-- <div class="create" @click="wasmCreate">
            wasmCreate
-          </div>
+          </div> -->
         
         </div>
         <div class="createNft mt-12">
@@ -105,7 +105,7 @@ export default {
       chainType: "1170",
       uptickAddress:'',
       isShowChainList:false,
-      currentSelect:'Cosmos Native',
+      currentSelect:'Wasm',
       chainList: [
         {
           text: "Cosmos Native",
@@ -151,21 +151,30 @@ export default {
     },
    async NativeToEvm(){
       let NativeToEvmResult =  await convertCosmosNFT2ERC(this.nftAddressValue,this.nftIdValue)
-      this.EvmcontractAddress = NativeToEvmResult.contractAddress
-      this.EvmtokenId = NativeToEvmResult.tokenId
+      this.EvmcontractAddress = NativeToEvmResult.evmNftAddress
+      this.EvmtokenId = NativeToEvmResult.evmNftId
+         let text = 'Evm contarctAddress :'+ this.EvmcontractAddress +'Evm TokenId :'+ this.EvmtokenId
+         this.$mtip({
+               title:text,
+          });
     },
       async EvmToNative(){
        let result = await convertERC2CosmosNFT(this.nftAddressValue,this.nftIdValue) 
          
-       const {uptickNftAddress,denomId} = result
-       let text = 'Evm contarctAddress :'+uptickNftAddress +'Evm TokenId :'+denomId
+       const {uptickNftAddress,uptickNftId} = result
+       let text = 'Uptick contarctAddress :'+uptickNftAddress +'Uptick TokenId :'+uptickNftId
          this.$mtip({
                title:text,
           });
 
     },
    async NativeToWasm(){
-      await convertNFT2Wasm(this.nftAddressValue,this.nftIdValue)
+    let hash =   await convertNFT2Wasm(this.nftAddressValue,this.nftIdValue)
+     if(hash){
+          this.$mtip({
+               title:hash,
+          });
+     }
    },
   async searchNft(){
     let result = await queryNftFromWasm();
