@@ -36,6 +36,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+    max-width: 1300px;
+}
+
+
+ 
+
 .top {
     background-image: url('../assets/bg.jpg');
     background-repeat: no-repeat;

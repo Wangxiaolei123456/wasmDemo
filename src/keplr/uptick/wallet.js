@@ -61,10 +61,21 @@ export async function queryNftFromWasm(){
             {"tokens":{"owner":accountInfo.bech32Address}}  
         );
 
+        let tokenArr = []
+      
+        // for (let i = 0; i < result.tokens.length; i++) {
+        //     tokenObj.nftId = result.tokens[i]
+        //     tokenObj.nftAddress = REGISTRY_CONTRACT
+        //     tokenArr.push(tokenObj)
+        // }
+        result.tokens.forEach((e) => {
+            let tokenObj = {}
+            tokenObj.nftId = e
+            tokenObj.nftAddress = REGISTRY_CONTRACT
+            tokenArr.push(tokenObj)               
+        });
 
-
-        console.log("queryContractSmart",result);
-        return result.tokens
+        return tokenArr
     }catch(e){
         console.log(5.5); 
         console.log("error is ",e);

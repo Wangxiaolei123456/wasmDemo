@@ -62,23 +62,21 @@ export async function deployContract(name) {
         })
     })
 }
-export async function ownerOf(contractAddress,tokenId){
+export async function balanceOf(contractAddress,tokenId){
     debugger
     try {
         const account = await base.getAccounts();
         let address = await account.getAddress();
         let chainId = await account.getChainId();
 
-      
         let contract
         if (!contract) {
-            contract = await connect(contractAddress, abi, account);
+            contract = await connect('0xa92ca1f63C993F2DD1Ec18209579E3b263fdB09c', abi, account);
         }
         let gasSetting = await base.getGasPriceAndGasLimit();
         console.log("gasSetting", gasSetting);
-        let result = await contract.ownerOf(
-      
-            tokenId, 
+        let result = await contract.balanceOf(
+            '0x250bfb91edd6e9dea59550a25026997a79de9537', 
             { gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit }
         );
         console.log("result ownerOf ---", result);

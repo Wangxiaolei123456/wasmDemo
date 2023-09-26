@@ -1,6 +1,10 @@
 import axios from "axios";
 const service = axios.create({
     timeout: 300000,
+    headers: {
+       
+        "Content-Type": "application/json",
+    },
   });
 
 export function getChainListInfo(params) {
@@ -72,6 +76,10 @@ export function requestConvertERC2CosmosNFT(params,bodyParams) {
     return service.post('/gonapi/nft/evmConvertCosmos?uptickOwner='+params.uptickOwner + '&uptickNftAddress=' +params.uptickNftAddress+ '&uptickNftId=' +params.uptickNftId, 
         transObjToParamStr(bodyParams)
     )
+}
+
+export function searchNativeNfts(obj) {
+    return service.get('/uptickapi/uptick/collection/nfts?'+transObjToParamStr(obj))
 }
 
 

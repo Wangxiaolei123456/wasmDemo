@@ -8,7 +8,9 @@ let uptick721 = require('./handler/uptick721.js');
 import $store from "../../store";
 
 (function () {
+    debugger
     if (window.ethereum) {
+    
         base.addNetwork();
         init();
     }
