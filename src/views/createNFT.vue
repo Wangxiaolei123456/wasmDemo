@@ -9,19 +9,24 @@
             </div>
 
         </div> 
-        <div class="name">
-            <div style="display: flex; justify-content: end;">
+        <div class="name mt-6">
+            <div class="d-flex flex-row justify-space-between">
+                  <div class="title">TokenId <span class="star">*</span></div>
                 <div class="title" style="text-align: right;">{{ nameValue.length }}/80</div>
             </div>
             <input class="textInput" type="text" placeholder="Token ID" v-model="nameValue" maxlength="80">
         </div>
-        <div class="description">
-            <div class="title" style="text-align: right;">{{ descriptionValue.length }}/800</div>
+        <div class="description mt-6">
+            <div class="d-flex flex-row justify-space-between">
+                  <div class="title">Token uri</div>
+                <div class="title" style="text-align: right;">{{ descriptionValue.length }}/800</div>
+            </div>
+           
             <textarea class="descriptionText" placeholder="Token uri" v-model="descriptionValue"
                 maxlength="800"></textarea>
         </div>
         <div style="width: 90%;">
-            <button class="subBtn" @click="submitButton" >Create NFT</button>
+            <button class="subBtn" @click="submitButton" :disabled="isInputEmpty">Create NFT</button>
         </div>                                                       
         <loading :isShowLoading="isShowLoading"></loading>
         <uComponents ref="ucom"></uComponents>
@@ -64,6 +69,11 @@ export default {
     },
     filters: {
 
+    },
+     watch: {
+
+        nameValue: 'checkInput',
+        
     },
     async mounted() {
 
@@ -113,6 +123,12 @@ export default {
         keplrKeystoreChange() {
             keplrKeystoreChange();
         },
+        checkInput() {
+            debugger
+            this.isInputEmpty =
+                this.nameValue.trim() === '' 
+            console.log(this.isInputEmpty)
+        },
        
       
         async submitButton() {
@@ -149,8 +165,14 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+.star {
+  color: red;
+  font-size: 18px;
+  font-family: "宋体";
+  margin-left: 10px;
+}
 .title {
-    text-align: center;
+
     width: 100%;
 	font-family: "AvenirNext-Regular" !important;
     font-size: 15px !important;
@@ -169,7 +191,7 @@ export default {
         align-items: center;
         background-color: #401b45;
         background-position: center;
-        height: 450px;
+        height: 270px;
         width: 100%;
         position: relative;
 

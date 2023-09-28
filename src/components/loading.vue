@@ -33,8 +33,8 @@
          background-color: #1e0826;
          border-radius: 10px;
          position: absolute;
-         top: 50%;
-         left: 50%;
+         top: 20%;
+         left: 43%;
          transform: translate(-50%, -50%);
          display: flex;
          justify-content: center;

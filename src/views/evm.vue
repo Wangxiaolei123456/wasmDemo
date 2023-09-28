@@ -7,7 +7,7 @@
         <button class="disconnect ml-4" @click="disconnect">Disconnect</button>
       </div>
     </div>
-    <div class="content d-flex flex-row justify-space-between mt-12">
+    <div class="content d-flex flex-row justify-space-between ">
       <div class="left">
         <div class="createNft">
             <CreateNFT ></CreateNFT>
@@ -16,13 +16,13 @@
       <div class="right d-flex flex-column">
         
           <div class="d-flex flex-row align-center">
-            <div  class="title-20">nftAddress :</div>
-             <input class="textInput" type="text" placeholder="NFT Address" v-model="nftAddressValue"> 
+            <div  class="title-20">NFT Address :</div>
+             <input class="textInput" type="text"  v-model="nftAddressValue"> 
              
              </div>
              <div class="d-flex flex-row align-center mt-6">
-              <div  class="title-20">nftId :</div>
-             <input class="textInput" type="text" placeholder="NFT ID" v-model="nftIdValue"> 
+              <div  class="title-20">NFT ID :</div>
+             <input class="textInput" type="text"  v-model="nftIdValue"> 
          
              </div>
              <div class="d-flex flex-row mt-5">
@@ -32,17 +32,17 @@
               <button type="submit" class="btn1 ml-6" @click="NativeToWasm">NativeToWasm</button>
              </div>
           
-              <div class="d-flex flex-row mt-5">
+              <div class="d-flex flex-row mt-8">
 
 
               <div class="btn mr-8" :class="{ btn2: wasmClick }"  @click="searchNft"
-            >searchWasmNft</div
+            >Search Wasm Nft</div
           > 
           <div class="btn mr-8" :class="{ btn2: nativeClick }" @click="searchNativeNft"
-            >searchNativeNft</div
+            >Search Native Nft</div
           >
-             <div class="btn " :class="{ btn2:evmClick }"  @click="searchEvmNft"
-            >searchEvmNft</div
+             <div class="btn " :class="{ btn2:evmClick }" 
+            @click="searchEvmNft">Search Evm Nft</div
           >  
                <!-- <button type="submit"  class="btn " @click="searchNft">searchWasmNft</button>
               <button type="submit" class="btn ml-6"  @click="searchNativeNft">searchNativeNft</button>
@@ -52,7 +52,12 @@
               -->
              </div>
 
-               <div class="histroyList" v-if="histroyList.length == 0">
+             <div class="search d-flex flex-row justify-space-between mt-5" v-if='evmClick'>
+                <input class="textInput" type="text" placeholder="Please enter the EVM contract address to query" v-model="searchTokenAddress"> 
+                <button class="btn1 ml-6" @click="searchToken" >Search</button>
+             </div>
+      <div style="  position: relative;">
+          <div class="histroyList " v-if="histroyList.length == 0">
                  <div  class="empty">This is empty</div>
                </div>
                 <div class="histroyList" v-else>
@@ -67,7 +72,15 @@
                    
                    </div>
                  </div>
+           
                </div>
+                   <div v-if="isShowLoading" class="load  d-flex flex-column">
+         <img src="@/assets/loading.gif" alt=""/>
+         <div>Loading...</div>
+      </div>
+      </div>
+             
+           
               
             <!-- <div class="title-20"> nftId:  <input class="textInput" type="text" placeholder="NFT Id" v-model="nftIdValue" > </div> -->
       </div>
@@ -92,19 +105,21 @@ import { getMyCardList, updateUser,searchNativeNfts } from "@/api/home";
 import { balanceOf } from "/src/metaMask/evm/handler/uptick721.js"
 import Popup from './popup';
 import { getEvmAddress,WasmNftMint,convertWasmNFT2NFT,convertNFT2Wasm,convertCosmosNFT2ERC,convertERC2CosmosNFT,queryNftFromWasm} from "/src/keplr/uptick/wallet"
-
+import Loading from "@/components/loading.vue";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'convert',
-  components: { CreateNFT, ConvertCosmoss, Card, Popup },
+  components: { CreateNFT, ConvertCosmoss, Card, Popup,Loading },
   data() {
     return {
+      isShowLoading:false,
+      searchTokenAddress:'',
       wasmClick:false,
       nativeClick:false,
       evmClick:false,
       list: [],
       nftIdValue:'',
-      isShowLoading: false,
+
       isShowCreate: true,
       selectItem: {},
       popupVisible: false,
@@ -189,13 +204,18 @@ export default {
      }
    },
   async searchNft(){
+    this.isShowLoading =true
+    this.histroyList =[]
          this.wasmClick = true
      this.nativeClick = false
      this.evmClick = false
     let result = await queryNftFromWasm();
      this.histroyList = result
+     this.isShowLoading =false
    },
   async searchNativeNft(){
+     this.isShowLoading =true
+        this.histroyList =[]
            this.wasmClick = false
      this.nativeClick = true
      this.evmClick = false
@@ -204,19 +224,47 @@ export default {
       let params = {
         owner:this.uptickAddress
       }
-      await searchNativeNfts(params)
+     let result =  await searchNativeNfts(params)
+     let currentList = result.data.owner.id_collections
+     let currentToken = currentList.filter(v=>v.denom_id == "uptick14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s59l95g")
+  if(currentToken.length >0){
+    let currentContantAddress =currentToken[0].denom_id
+
+      let tokenArr = []
+      
+        // for (let i = 0; i < result.tokens.length; i++) {
+        //     tokenObj.nftId = result.tokens[i]
+        //     tokenObj.nftAddress = REGISTRY_CONTRACT
+        //     tokenArr.push(tokenObj)
+        // }
+        currentToken[0].token_ids.forEach((e) => {
+            let tokenObj = {}
+            tokenObj.nftId = e
+            tokenObj.nftAddress = currentContantAddress
+            tokenArr.push(tokenObj)               
+        });
+         this.histroyList = tokenArr
+
+  }
+     
+          this.isShowLoading =false
+        
   },
   async searchEvmNft(){
+    this.histroyList =[]
     this.wasmClick = false
      this.nativeClick = false
      this.evmClick = true
- let result = await balanceOf(this.nftAddressValue,this.nftIdValue);
- console.log("result",parseInt(result,16));
- let text = '当前资产所在账户'+result
-  this.$mtip({
-               title:text,
-        });
+ 
 
+  },
+  async searchToken(){
+     this.isShowLoading =true
+        
+    let result = await balanceOf(this.searchTokenAddress,this.evmAddress)
+    console.log("searchToken",result);
+    this.histroyList =  result.reverse()
+     this.isShowLoading =false
   },
 
     
@@ -359,11 +407,9 @@ export default {
 
 .content {
   // background-color: #ffffff;
-  height: 811px;
-
+  height: 700px;
+  margin-top:40px;
   .left {
-    
-
     position: relative;
     // background-color: #ed0091;
     height: 100%;
@@ -484,7 +530,7 @@ export default {
     .btn1{
       width: 125px;
       height: 39px;
-      background-color: #9530fd;
+      background-color: #fb599b;
       border-radius: 19px;
       font-family: Helvetica;
       font-size: 13px;
@@ -521,7 +567,7 @@ export default {
         }
       
     .title-20{
-      width:90px;
+      width:110px;
       font-family: Helvetica;
 	font-size: 15px;
 	font-weight: normal;
@@ -547,12 +593,38 @@ export default {
             normal;
         border-radius: 5px;
     }
+    .load {
+         width: 100px;
+         height: 100px;
+         background-color: #1e0826;
+         border-radius: 10px;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         display: flex;
+         justify-content: center;
+
+         img {
+            margin: 0 auto;
+            width: 42px;
+            height: 42px;
+         }
+
+         div {
+            margin-top: 10px;
+            text-align: center;
+            color: white;
+         }
+      }
     .histroyList{
-      margin-top: 15px;
+
+      margin-top: 10px;
       width: 100%;
-      height: 250px;
+      height: 240px;
       background-color: black;
       border-radius: 10px;
+      overflow-y: auto;
       .empty {
       height: 250px;
       display: flex;
@@ -567,13 +639,15 @@ export default {
         width: 100%;
         height: 40px;
         align-items: center;
-        border-bottom: 1px solid #ffffff;
+      
         .nftaddtrss{
           width: 30%;
           color: #ffffff;
           font-size:13px;
           font-family: Helvetica;
           text-align: center;
+          text-align:left;
+          padding-left: 20px;
         }
         .nftid{
            width: 70%;
@@ -591,15 +665,15 @@ export default {
     .title{
       width: 100%;
         font-family: Helvetica;
-      font-size: 14px;
+      font-size: 16px !important;
       align-items: center;
       height: 40px;
-      font-weight: normal;
+      font-weight: bold;
       font-stretch: normal;
       line-height: 20px;
       letter-spacing: 0px;
       color: #ffffff;
-      border-bottom: 1px solid #ffffff;
+
       .s1{
         width:30%;
         text-align: center;

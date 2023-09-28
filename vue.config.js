@@ -52,21 +52,21 @@ module.exports = defineConfig({
       },
 
       '/uptick': {
-        // target: 'https://rpc.origin.uptick.network/',
-        target: 'http://47.242.107.228:26657/',
+        target: 'https://rpc.origin.uptick.network/',
+        // target: 'http://47.242.107.228:26657/',
         ws: false,
         changeOrigin: true,
         pathRewrite: {
           '^/uptick': '/'
         }
       },
-      '/uptickapi': {
-        // target: 'https://rpc.origin.uptick.network/',
-        target: 'http://47.242.107.228:1317/',
+      '/uptickNodeRpc': {
+        target: 'https://rest.origin.uptick.network/',
+        // target: 'http://47.242.107.228:1317/',
         ws: false,
         changeOrigin: true,
         pathRewrite: {
-          '^/uptickapi': '/'
+          '^/uptickNodeRpc': '/'
         }
       },
       '/iris': {

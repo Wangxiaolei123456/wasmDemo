@@ -79,7 +79,7 @@ export function requestConvertERC2CosmosNFT(params,bodyParams) {
 }
 
 export function searchNativeNfts(obj) {
-    return service.get('/uptickapi/uptick/collection/nfts?'+transObjToParamStr(obj))
+    return service.get('https://rest.origin.uptick.network/uptick/collection/nfts?'+transObjToParamStr(obj))
 }
 
 

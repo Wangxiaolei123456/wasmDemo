@@ -20,10 +20,10 @@ import {
     getRanHex
 } from "../../utils/helper";
 
-const chainId = "uptick_7000-1";
-const irisChainId = "uptick_7000-1";
-const uptickUrl = window.location.protocol + "//" + window.location.host + "/uptick";
-//const uptickUrl = "http://47.242.107.228:26657";
+const chainId = "origin_1170-1";
+const irisChainId = "gon-irishub-1";
+// const uptickUrl = window.location.protocol + "//" + window.location.host + "/uptick";
+const uptickUrl = "https://rpc.origin.uptick.network/";
 
 
 const irisUrl = window.location.protocol + "//" + window.location.host + "/iris";
@@ -359,7 +359,7 @@ export async function uptick2Iris(denomId, nftId) {
 }
 
 
-export async function getAccountInfo(pChainId = "uptick_7000-1") {
+export async function getAccountInfo(pChainId = "origin_1170-1") {
 
     console.log("xxl getAccountInfo ", pChainId);
     try {

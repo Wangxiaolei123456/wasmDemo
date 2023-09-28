@@ -53,15 +53,12 @@ export default {
   methods: {
     async connectWallet() {
 
-      // Iris Address
-      let account = await getkeplrIrisAddress();
       let evmAccount = await getMatamaskWeb3();
-      // debugger
-      this.$store.commit("SET_DID", account.toLowerCase());
+
       // uptick Address
       let uptickAccount = await getkeplrUptickAddress();
       this.$store.commit("SET_UPTICK_DID", uptickAccount.toLowerCase());
-      if (account && uptickAccount) {
+      if ( uptickAccount) {
         this.$router.push({ name: "evm" });
       }
     },

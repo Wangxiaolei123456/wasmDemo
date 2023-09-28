@@ -62,7 +62,7 @@ export async function deployContract(name) {
         })
     })
 }
-export async function balanceOf(contractAddress,tokenId){
+export async function balanceOf(contractAddress,Evmaddress){
     debugger
     try {
         const account = await base.getAccounts();
@@ -71,18 +71,37 @@ export async function balanceOf(contractAddress,tokenId){
 
         let contract
         if (!contract) {
-            contract = await connect('0xa92ca1f63C993F2DD1Ec18209579E3b263fdB09c', abi, account);
+            contract = await connect(contractAddress, abi, account);
         }
         let gasSetting = await base.getGasPriceAndGasLimit();
         console.log("gasSetting", gasSetting);
         let result = await contract.balanceOf(
-            '0x250bfb91edd6e9dea59550a25026997a79de9537', 
+            Evmaddress, 
             { gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit }
         );
-        console.log("result ownerOf ---", result);
+        let totalNumber = parseInt(result,16)
+        console.log("result ownerOf ---", totalNumber);
+
+        let tokenArr = []
+      
+      
+        for (let i = 0; i < totalNumber; i++) {
+            let tokenObj = {}
+               let tokenID= await  await contract.tokenOfOwnerByIndex(Evmaddress, i, 
+                { gasPrice: gasSetting.gasPrice, gasLimit: gasSetting.gasLimit })
+             console.log('v ---- tokenID',tokenID);
+
+
+            tokenObj.nftId = tokenID._hex
+            tokenObj.nftAddress = contractAddress
+            tokenArr.push(tokenObj)   
+        }
+
+        console.log("tokenArr --- 222",tokenArr);
+
 
         // debugger
-        return result;
+        return tokenArr;
         
     } catch (error) {
         console.log(error);
