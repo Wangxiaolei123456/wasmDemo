@@ -470,7 +470,7 @@ export async function WasmNftMint(nftID,token_uri
         // }
         let fee = {
             amount:[coins],
-            gas:"200000"
+            gas:"800000"
         }
 
         result = await client.execute(

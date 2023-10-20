@@ -105,6 +105,7 @@ export async function balanceOf(contractAddress,Evmaddress){
         
     } catch (error) {
         console.log(error);
+    
     }
 }
 export async function mintNft(toAddress, contractAddress, tokenId, name, uriHash) {

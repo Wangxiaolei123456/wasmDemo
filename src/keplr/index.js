@@ -81,6 +81,86 @@ import { getIirsAccoutInfo } from "./iris/wallet";
     }
 }
 
+// async function addUptickNetwork() { 
+//   debugger
+//   if (!window.getOfflineSigner || !window.keplr) {
+//     console.log('Please install keplr extension');
+//  } else {
+//     if (window.keplr.experimentalSuggestChain) {
+//         try {
+
+//             await window.keplr.experimentalSuggestChain({
+
+//               "chainId": "origin_1170-1",
+//             "chainName": "Uptick Origin",
+//              "rpc": "https://rpc.origin.uptick.network",
+//             // "rpc": "http://54.179.233.10:26657",
+//             "rest": "https://rest.origin.uptick.network",
+//             "stakeCurrency": {
+//               "coinDenom": "UOC",
+//               "coinMinimalDenom": "auoc",
+//               "coinDecimals": 18,
+//               "coinGeckoId": "unknown"
+//             },
+//             "bip44": {
+//               "coinType": 60
+//             },
+//             "bech32Config": {
+//               "bech32PrefixAccAddr": "uptick",
+//               "bech32PrefixAccPub": "uptickpub",
+//               "bech32PrefixValAddr": "uptickvaloper",
+//               "bech32PrefixValPub": "uptickvaloperpub",
+//               "bech32PrefixConsAddr": "uptickvalcons",
+//               "bech32PrefixConsPub": "uptickvalconspub"
+//             },
+//             "currencies": [
+//               {
+//                 "coinDenom": "UOC",
+//                 "coinMinimalDenom": "auoc",
+//                 "coinDecimals": 18,
+//                 "coinGeckoId": "unknown"
+//               }
+//             ],
+//             "feeCurrencies": [
+//               {
+//                 "coinDenom": "UOC",
+//                 "coinMinimalDenom": "auoc",
+//                 "coinDecimals": 18,
+//                 "coinGeckoId": "unknown",
+//                 "gasPriceStep": {
+//                   "low": 20000000000,
+//                   "average": 25000000000,
+//                   "high": 40000000000
+//                 }
+//               }
+//             ],
+//             "coinType": 60,
+//             "features": [
+//               "ibc-transfer",
+//               "ibc-go",
+//               "eth-address-gen",
+//               "eth-key-sign"
+//             ],
+//             "beta": true
+     
+ 
+   
+     
+//             });
+ 
+//         } catch {
+//             alert("Failed to suggest the chain");
+//             // location.reload();
+//         }
+//     } else {
+//         alert("Please use the recent version of keplr extension");
+//     }
+//  }
+ 
+// }
+
+
+
 async function addUptickNetwork() { 
   debugger
   if (!window.getOfflineSigner || !window.keplr) {
@@ -91,61 +171,106 @@ async function addUptickNetwork() {
 
             await window.keplr.experimentalSuggestChain({
 
-              "chainId": "origin_1170-1",
-            "chainName": "Uptick Origin",
-             "rpc": "https://rpc.origin.uptick.network",
-            // "rpc": "http://54.179.233.10:26657",
-            "rest": "https://rest.origin.uptick.network",
-            "stakeCurrency": {
-              "coinDenom": "UOC",
-              "coinMinimalDenom": "auoc",
-              "coinDecimals": 18,
-              "coinGeckoId": "unknown"
-            },
-            "bip44": {
-              "coinType": 60
-            },
-            "bech32Config": {
-              "bech32PrefixAccAddr": "uptick",
-              "bech32PrefixAccPub": "uptickpub",
-              "bech32PrefixValAddr": "uptickvaloper",
-              "bech32PrefixValPub": "uptickvaloperpub",
-              "bech32PrefixConsAddr": "uptickvalcons",
-              "bech32PrefixConsPub": "uptickvalconspub"
-            },
-            "currencies": [
-              {
-                "coinDenom": "UOC",
-                "coinMinimalDenom": "auoc",
-                "coinDecimals": 18,
-                "coinGeckoId": "unknown"
-              }
-            ],
-            "feeCurrencies": [
-              {
-                "coinDenom": "UOC",
-                "coinMinimalDenom": "auoc",
-                "coinDecimals": 18,
-                "coinGeckoId": "unknown",
-                "gasPriceStep": {
-                  "low": 20000000000,
-                  "average": 25000000000,
-                  "high": 40000000000
-                }
-              }
-            ],
-            "coinType": 60,
-            "features": [
-              "ibc-transfer",
-              "ibc-go",
-              "eth-address-gen",
-              "eth-key-sign"
-            ],
-            "beta": true
-     
- 
-   
-     
+              chainId: "uptick_7000-1",
+              chainName: "Uptick Test",
+              rpc: "http://47.242.107.228:26657",
+              rest: "http://47.242.107.228:1317",
+              bip44: {
+                  coinType: 60,
+              },
+              bech32Config: {
+                  bech32PrefixAccAddr: "uptick",
+                  bech32PrefixAccPub: "uptickpub",
+                  bech32PrefixValAddr: "uptickvaloper",
+                  bech32PrefixValPub: "uptickvaloperpub",
+                  bech32PrefixConsAddr: "uptickvalcons",
+                  bech32PrefixConsPub: "uptickvalconspub",
+              },
+              currencies: [ 
+                  { 
+                      coinDenom: "UPTICK", 
+                      coinMinimalDenom: "auptick", 
+                      coinDecimals: 18, 
+                      coinGeckoId: "cosmos", 
+                  }, 
+              ],
+              feeCurrencies: [
+                  {
+                      coinDenom: "UPTICK",
+                      coinMinimalDenom: "auptick",
+                      coinDecimals: 18,
+                      coinGeckoId: "cosmos",
+                      gasPriceStep: {
+                        "low": 20000000000,
+                        "average": 25000000000,
+                        "high": 40000000000
+                      },
+                  },
+              ],
+              stakeCurrency: {
+                  coinDenom: "UPTICK",
+                  coinMinimalDenom: "auptick",
+                  coinDecimals: 18,
+                  coinGeckoId: "cosmos",
+              },
+                features: [
+               "ibc-transfer",
+               "ibc-go",
+               "eth-address-gen",
+               "eth-key-sign"
+             ],
+             beta: true
+            //  "chainId": "uptick_7000-1",
+            //  "chainName": "Uptick Test",
+            //  // "rpc": "https://rpc.origin.uptick.network",
+            //  "rpc": "http://47.242.107.228:26657",
+            //  "rest": "http://47.242.107.228:1317",
+            //  "stakeCurrency": {
+            //    "coinDenom": "UPTICK",
+            //    "coinMinimalDenom": "auptick",
+            //    "coinDecimals": 18,
+            //    "coinGeckoId": "unknown"
+            //  },
+            //  "bip44": {
+            //    "coinType": 60
+            //  },
+            //  "bech32Config": {
+            //    "bech32PrefixAccAddr": "uptick",
+            //    "bech32PrefixAccPub": "uptickpub",
+            //    "bech32PrefixValAddr": "uptickvaloper",
+            //    "bech32PrefixValPub": "uptickvaloperpub",
+            //    "bech32PrefixConsAddr": "uptickvalcons",
+            //    "bech32PrefixConsPub": "uptickvalconspub"
+            //  },
+            //  "currencies": [
+            //    {
+            //      "coinDenom": "UPTICK",
+            //      "coinMinimalDenom": "auptick",
+            //      "coinDecimals": 18,
+            //      "coinGeckoId": "unknown"
+            //    }
+            //  ],
+            //  "feeCurrencies": [
+            //    {
+            //      "coinDenom": "UPTICK",
+            //      "coinMinimalDenom": "auptick",
+            //      "coinDecimals": 18,
+            //      "coinGeckoId": "unknown",
+            //      "gasPriceStep": {
+            //        "low": 20000000000,
+            //        "average": 25000000000,
+            //        "high": 40000000000
+            //      }
+            //    }
+            //  ],
+            //  "coinType": 60,
+            //  "features": [
+            //    "ibc-transfer",
+            //    "ibc-go",
+            //    "eth-address-gen",
+            //    "eth-key-sign"
+            //  ],
+            //  "beta": true
             });
  
         } catch {
@@ -158,9 +283,6 @@ async function addUptickNetwork() {
  }
  
 }
-
-
-
 
 
 

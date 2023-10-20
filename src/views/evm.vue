@@ -54,7 +54,7 @@
 
              <div class="search d-flex flex-row justify-space-between mt-5" v-if='evmClick'>
                 <input class="textInput" type="text" placeholder="Please enter the EVM contract address to query" v-model="searchTokenAddress"> 
-                <button class="btn1 ml-6" @click="searchToken" >Search</button>
+                <button class="btn1 ml-6" @click="searchToken" :disabled='!searchTokenAddress'>Search</button>
              </div>
       <div style="  position: relative;">
           <div class="histroyList " v-if="histroyList.length == 0">
@@ -259,12 +259,22 @@ export default {
 
   },
   async searchToken(){
-     this.isShowLoading =true
+    try {
+       this.isShowLoading =true
         
     let result = await balanceOf(this.searchTokenAddress,this.evmAddress)
     console.log("searchToken",result);
     this.histroyList =  result.reverse()
      this.isShowLoading =false
+      
+    } catch (error) {
+      this.$mtip({
+               title:'Please enter correct address',
+          });
+
+        this.isShowLoading =false
+    }
+    
   },
 
     
@@ -540,6 +550,9 @@ export default {
       letter-spacing: 0px;
       color: #ffffff;
     }
+    .btn1:disabled {
+    background-color: gray;
+}
        .btn {
          
           font-family:Helvetica;
